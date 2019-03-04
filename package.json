@@ -1,0 +1,50 @@
+{
+  "name": "fastify-flash",
+  "version": "0.1.0",
+  "description": "Flash message method for fastify.",
+  "main": "./lib",
+  "scripts": {
+    "prebuild": "npm run clean-build && npm run lint",
+    "build": "tsc -p ./tsconfig.json",
+    "clean-build": "rimraf ./lib && mkdir lib",
+    "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
+    "prelint": "npm run prettier",
+    "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
+    "update": "npx npm-check -u",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/fastify-flash"
+  },
+  "keywords": [
+    "fastify",
+    "flash",
+    "messages"
+  ],
+  "contributors": [
+    "Maksim Sinik <maksim@sinik.it>"
+  ],
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/fastify/fastify-flash/issues"
+  },
+  "homepage": "http://fastify.io/",
+  "devDependencies": {
+    "@types/node": "~11.9.5",
+    "fastify": "~2.0.0",
+    "prettier": "~1.16.4",
+    "rimraf": "~2.6.3",
+    "ts-node": "~8.0.2",
+    "tslint": "~5.13.0",
+    "tslint-config-prettier": "~1.18.0",
+    "typescript": "~3.3.3333"
+  }
+}
