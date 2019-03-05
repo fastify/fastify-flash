@@ -12,7 +12,7 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap -j 4 src/flash.test.ts"
   },
   "repository": {
     "type": "git",
@@ -38,13 +38,20 @@
   },
   "homepage": "http://fastify.io/",
   "devDependencies": {
-    "@types/node": "~11.9.5",
+    "@types/node": "~11.9.6",
     "fastify": "~2.0.0",
+    "fastify-cookie": "~3.0.0",
+    "fastify-session": "~2.0.0",
     "prettier": "~1.16.4",
+    "request": "~2.88.0",
     "rimraf": "~2.6.3",
+    "tap": "~12.5.3",
     "ts-node": "~8.0.2",
     "tslint": "~5.13.0",
     "tslint-config-prettier": "~1.18.0",
     "typescript": "~3.3.3333"
+  },
+  "dependencies": {
+    "fastify-plugin": "~1.5.0"
   }
 }

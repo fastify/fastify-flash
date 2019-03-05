@@ -14,7 +14,6 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "noImplicitAny": true,
     "noUnusedLocals": true,
     "lib": [
       "es2018"
