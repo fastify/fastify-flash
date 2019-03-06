@@ -24,9 +24,9 @@ export function flashFactory() {
         throw new Error('Provide a message to flash.')
       }
       if (Array.isArray(message[0])) {
-        message[0].forEach(msg => {
-          ;(currentSession.flash[type] = currentSession.flash[type] || []).push(msg)
-        })
+        for (let i = 0; i < message[0].length; i++) {
+          ;(currentSession.flash[type] = currentSession.flash[type] || []).push(message[0][i])
+        }
         return currentSession.flash[type].length
       }
 
