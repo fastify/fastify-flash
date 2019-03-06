@@ -1,15 +1,13 @@
 import { test } from 'tap'
 import Fastify from 'fastify'
-import request from 'request'
 import fastifyCookie from 'fastify-cookie'
 import fastifySession from 'fastify-session'
-import { AddressInfo } from 'net'
 
 import fastifyFlash from '.'
 import { ExtendedRequest, ExtendedReply } from './flash'
 
 test('should set error message and and clear up after displaying.', t => {
-  t.plan(8)
+  t.plan(7)
   const fastify = Fastify()
 
   const options = {
@@ -30,28 +28,22 @@ test('should set error message and and clear up after displaying.', t => {
     t.equal(Object.keys(req.session.flash).length, 0)
     reply.send({ error })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(body, '{"error":["Something went wrong"]}')
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(response.payload, '{"error":["Something went wrong"]}')
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
 
 test('should set multiple flash messages.', t => {
-  t.plan(8)
+  t.plan(7)
   const fastify = Fastify()
 
   const options = {
@@ -74,28 +66,22 @@ test('should set multiple flash messages.', t => {
     t.equal(Object.keys(req.session.flash).length, 0)
     reply.send({ info })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(body, '{"info":["Welcome","Check out this great new feature"]}')
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(response.payload, '{"info":["Welcome","Check out this great new feature"]}')
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
 
 test('should set flash messages in one call.', t => {
-  t.plan(9)
+  t.plan(8)
   const fastify = Fastify()
 
   const options = {
@@ -118,28 +104,22 @@ test('should set flash messages in one call.', t => {
     t.equal(warning[1], 'password required')
     reply.send({ warning })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(body, '{"warning":["username required","password required"]}')
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(response.payload, '{"warning":["username required","password required"]}')
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
 
 test('should independently set, get and clear flash messages of multiple types.', t => {
-  t.plan(13)
+  t.plan(12)
   const fastify = Fastify()
 
   const options = {
@@ -170,28 +150,22 @@ test('should independently set, get and clear flash messages of multiple types.'
 
     reply.send({ info, notice })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(body, '{"info":["Welcome back"],"notice":["Last login was yesterday"]}')
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(response.payload, '{"info":["Welcome back"],"notice":["Last login was yesterday"]}')
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
 
 test('should return all messages and clear.', t => {
-  t.plan(8)
+  t.plan(7)
   const fastify = Fastify()
 
   const options = {
@@ -216,31 +190,25 @@ test('should return all messages and clear.', t => {
 
     reply.send({ ...msgs })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(
-          body,
-          '{"error":["Database is down","Message queue is down"],"notice":["Things are looking bleak"]}',
-        )
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(
+        response.payload,
+        '{"error":["Database is down","Message queue is down"],"notice":["Things are looking bleak"]}',
+      )
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
 
 test('should format messages.', t => {
-  t.plan(7)
+  t.plan(6)
   const fastify = Fastify()
 
   const options = {
@@ -265,22 +233,16 @@ test('should format messages.', t => {
 
     reply.send({ jared, jaredHanson })
   })
-  fastify.listen(0, err => {
-    fastify.server.unref()
-    t.error(err)
-    request(
-      {
-        method: 'GET',
-        uri: 'http://localhost:' + (fastify.server.address() as AddressInfo).port + '/test',
-        headers: {
-          'content-type': 'application/json',
-        },
-      },
-      (error, response, body) => {
-        t.error(error)
-        t.equal(body, '{"jared":"Hello Jared","jaredHanson":"Hello Jared Hanson"}')
-        t.equal(response.statusCode, 200)
-      },
-    )
-  })
+
+  fastify.inject(
+    {
+      method: 'GET',
+      url: '/test',
+    },
+    (error, response) => {
+      t.error(error)
+      t.equal(response.payload, '{"jared":"Hello Jared","jaredHanson":"Hello Jared Hanson"}')
+      t.equal(response.statusCode, 200)
+    },
+  )
 })
