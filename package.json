@@ -12,7 +12,7 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "test": "tap -j 4 src/flash.test.ts"
+    "test": "tap -J src/flash.test.ts"
   },
   "repository": {
     "type": "git",
