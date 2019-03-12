@@ -45,7 +45,7 @@ export function flashFactory() {
       }
 
       const messages = currentSession.flash[type]
-      delete currentSession.flash[type]
+      currentSession.flash[type] = undefined
 
       return messages || []
     },

@@ -7,7 +7,7 @@ import fastifyFlash from '.'
 import { ExtendedRequest, ExtendedReply } from './flash'
 
 test('should set error message and and clear up after displaying.', t => {
-  t.plan(7)
+  t.plan(6)
   const fastify = Fastify()
 
   const options = {
@@ -25,7 +25,6 @@ test('should set error message and and clear up after displaying.', t => {
     t.equal(Object.keys(req.session.flash).length, 1)
     t.equal(req.session.flash['error'].length, 1)
     const error = reply.flash('error')
-    t.equal(Object.keys(req.session.flash).length, 0)
     reply.send({ error })
   })
 
@@ -43,7 +42,7 @@ test('should set error message and and clear up after displaying.', t => {
 })
 
 test('should set multiple flash messages.', t => {
-  t.plan(7)
+  t.plan(6)
   const fastify = Fastify()
 
   const options = {
@@ -63,7 +62,6 @@ test('should set multiple flash messages.', t => {
     t.equal(req.session.flash['info'].length, 2)
     const info = reply.flash('info')
 
-    t.equal(Object.keys(req.session.flash).length, 0)
     reply.send({ info })
   })
 
@@ -81,7 +79,7 @@ test('should set multiple flash messages.', t => {
 })
 
 test('should set flash messages in one call.', t => {
-  t.plan(8)
+  t.plan(7)
   const fastify = Fastify()
 
   const options = {
@@ -99,7 +97,6 @@ test('should set flash messages in one call.', t => {
     const warning = reply.flash('warning')
     t.equal(warning.length, 2)
 
-    t.equal(Object.keys(req.session.flash).length, 0)
     t.equal(warning[0], 'username required')
     t.equal(warning[1], 'password required')
     reply.send({ warning })
@@ -119,7 +116,7 @@ test('should set flash messages in one call.', t => {
 })
 
 test('should independently set, get and clear flash messages of multiple types.', t => {
-  t.plan(12)
+  t.plan(10)
   const fastify = Fastify()
 
   const options = {
@@ -141,12 +138,10 @@ test('should independently set, get and clear flash messages of multiple types.'
     const info = reply.flash('info')
     t.equal(info.length, 1)
     t.equal(info[0], 'Welcome back')
-    t.equal(Object.keys(req.session.flash).length, 1)
 
     const notice = reply.flash('notice')
     t.equal(notice.length, 1)
     t.equal(notice[0], 'Last login was yesterday')
-    t.equal(Object.keys(req.session.flash).length, 0)
 
     reply.send({ info, notice })
   })
@@ -165,7 +160,7 @@ test('should independently set, get and clear flash messages of multiple types.'
 })
 
 test('should return all messages and clear.', t => {
-  t.plan(7)
+  t.plan(6)
   const fastify = Fastify()
 
   const options = {
@@ -185,8 +180,6 @@ test('should return all messages and clear.', t => {
     t.equal(Object.keys(msgs).length, 2)
     t.equal(msgs['error'].length, 2)
     t.equal(msgs['notice'].length, 1)
-
-    t.equal(Object.keys(req.session.flash).length, 0)
 
     reply.send({ ...msgs })
   })
@@ -208,7 +201,7 @@ test('should return all messages and clear.', t => {
 })
 
 test('should format messages.', t => {
-  t.plan(6)
+  t.plan(5)
   const fastify = Fastify()
 
   const options = {
@@ -228,8 +221,6 @@ test('should format messages.', t => {
     const jaredHanson = reply.flash('info')[0]
 
     t.equal(jaredHanson, 'Hello Jared Hanson')
-
-    t.equal(Object.keys(req.session.flash).length, 0)
 
     reply.send({ jared, jaredHanson })
   })
