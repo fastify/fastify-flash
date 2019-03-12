@@ -52,5 +52,8 @@
   },
   "dependencies": {
     "fastify-plugin": "~1.5.0"
+  },
+  "engines": {
+    "node": ">=8.10.0"
   }
 }
