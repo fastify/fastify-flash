@@ -8,7 +8,7 @@ export = fp(
     fastify.decorateRequest('flash', flash.request)
     fastify.decorateReply('flash', flash.reply)
 
-    fastify.addHook('preHandler', function(request: ExtendedRequest, reply, next) {
+    fastify.addHook('onRequest', function(request: ExtendedRequest, reply, next) {
       if (!request.session) {
         next(Error('Flash plugin requires a valid session.'))
       }
