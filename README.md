@@ -11,7 +11,7 @@ Flash messages are stored in the session. First we need to register the session 
 
 ``` javascript
 const fastify = require('fastify')()
-const fastifySession = require('fastify-session')
+const fastifySession = require('fastify-secure-session')
 const fastifyFlash = require('fastify-flash')
 
 fastify.register(fastifySession, {
@@ -30,6 +30,13 @@ fastify.get('/test', (req, reply) => {
   reply.send({ warning }) // {"warning":["username required","password required"]}
 })
 ```
+
+### Note on session plugin
+`fastify-secure-session` can be replaced by any session plugin as long as it:
+
+1. registers via the onRequest hook
+2. supports req.session as the session store
+
 
 ## API
 ### Set a flash massage(s)
