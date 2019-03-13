@@ -1,21 +1,22 @@
 import { test } from 'tap'
+import { join } from 'path'
+import { readFileSync } from 'fs'
 import Fastify from 'fastify'
-import fastifyCookie from 'fastify-cookie'
-import fastifySession from 'fastify-session'
+import fastifySession from 'fastify-secure-session'
 
 import fastifyFlash from '.'
 import { ExtendedRequest, ExtendedReply } from './flash'
+
+const key = readFileSync(join(__dirname, '..', 'secret-key'))
 
 test('should set error message and and clear up after displaying.', async t => {
   t.plan(5)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
+  fastify.register(fastifySession, {
+    key,
+  })
 
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
@@ -40,12 +41,9 @@ test('should set multiple flash messages.', async t => {
   t.plan(5)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
-
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
+  fastify.register(fastifySession, {
+    key,
+  })
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
@@ -72,12 +70,9 @@ test('should set flash messages in one call.', async t => {
   t.plan(6)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
-
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
+  fastify.register(fastifySession, {
+    key,
+  })
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
@@ -104,12 +99,9 @@ test('should independently set, get and clear flash messages of multiple types.'
   t.plan(9)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
-
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
+  fastify.register(fastifySession, {
+    key,
+  })
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
@@ -143,12 +135,9 @@ test('should return all messages and clear.', async t => {
   t.plan(5)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
-
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
+  fastify.register(fastifySession, {
+    key,
+  })
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
@@ -179,12 +168,9 @@ test('should format messages.', async t => {
   t.plan(4)
   const fastify = Fastify()
 
-  const options = {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  }
-
-  fastify.register(fastifyCookie)
-  fastify.register(fastifySession, options)
+  fastify.register(fastifySession, {
+    key,
+  })
   fastify.register(fastifyFlash)
 
   fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {

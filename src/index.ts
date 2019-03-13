@@ -22,6 +22,5 @@ export = fp(
   {
     fastify: '2.x.x',
     name: 'fastify-flash',
-    dependencies: ['fastify-session'],
   },
 )

@@ -7,17 +7,19 @@ This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connec
 `npm install fastify-flash`
 
 ## Usage
-Flash messages are stored in the session. First we need to register a session plugin, such as [fastify-session](https://www.npmjs.com/package/fastify-session) or [fastify-secure-session](https://www.npmjs.com/package/fastify-secure-session). We also need a cookie plugin to manage sessions: [fastify-cookie](https://www.npmjs.com/package/fastify-cookie).
+Flash messages are stored in the session. First we need to register the session plugin: [fastify-secure-session](https://www.npmjs.com/package/fastify-secure-session).
 
 ``` javascript
 const fastify = require('fastify')()
-const fastifyCookie = require('fastify-cookie')
 const fastifySession = require('fastify-session')
 const fastifyFlash = require('fastify-flash')
 
-fastify.register(fastifyCookie)
 fastify.register(fastifySession, {
-  secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
+  // adapt this to point to the directory where secret-key is located
+  key: fs.readFileSync(path.join(__dirname, 'secret-key')),
+  cookie: {
+    // options from setCookie, see https://github.com/fastify/fastify-cookie
+  }
 })
 fastify.register(fastifyFlash)
 
