@@ -17,16 +17,16 @@ const fastifyFlash = require('fastify-flash')
 
 fastify.register(fastifyCookie)
 fastify.register(fastifySession, {
-    secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
-  })
+  secret: 'cNaoPYAwF60HZJzkcNaoPYAwF60HZJzk',
+})
 fastify.register(fastifyFlash)
 
 fastify.get('/test', (req, reply) => {
-      req.flash('warning', ['username required', 'password required'])
+  req.flash('warning', ['username required', 'password required'])
 
-      const warning = reply.flash('warning')
-      reply.send({ warning }) // {"warning":["username required","password required"]}
-    })
+  const warning = reply.flash('warning')
+  reply.send({ warning }) // {"warning":["username required","password required"]}
+})
 ```
 
 ## API
@@ -51,3 +51,6 @@ It can be called in two different ways:
 - `reply.flash() // returns all messages as object { [k: string]: undefined | string[] }`
 - `reply.flash('info') // returns array of messages that are stored with provided type`
 
+## License
+
+MIT
