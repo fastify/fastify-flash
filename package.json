@@ -1,6 +1,6 @@
 {
   "name": "fastify-flash",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Flash message method for fastify.",
   "main": "./lib",
   "scripts": {
@@ -56,6 +56,9 @@
   "dependencies": {
     "fastify-plugin": "~1.5.0"
   },
+  "files": [
+    "/lib"
+  ],
   "engines": {
     "node": ">=8.10.0"
   }
