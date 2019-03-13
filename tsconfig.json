@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "declaration": true,
-    "target": "es2016",
+    "target": "es2017",
     "module": "commonjs",
     "outDir": "lib",
     "rootDir": "src",
@@ -14,7 +14,6 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "noImplicitAny": true,
     "noUnusedLocals": true,
     "lib": [
       "es2018"

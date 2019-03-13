@@ -1,10 +1,8 @@
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: "ubuntu-16.04"
 
 strategy:
   matrix:
-    node_6_x:
-      node_version: 6.x
     node_8_x:
       node_version: 8.x
     node_10_x:
@@ -21,5 +19,15 @@ steps:
   - bash: npm install
     displayName: Install dependencies
 
-  - bash: npm test
+  - bash: npm run build
+    displayName: Lint and Build TypeScript
+
+  - bash: npm run test:report && npm run test:reporter
     displayName: Test
+
+  - task: PublishTestResults@2
+    displayName: "Publish Test Results"
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: "junit-testresults.xml"
+      testRunTitle: TestRun $(node_version)
