@@ -1,7 +1,7 @@
 {
   "name": "fastify-flash",
   "version": "0.0.1",
-  "description": "Flash message method for fastify.",
+  "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
     "prebuild": "npm run clean-build && npm run lint",
