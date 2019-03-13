@@ -16,7 +16,7 @@ export interface ExtendedReply<T = ServerResponse> extends FastifyReply<T> {
 }
 
 export function flashFactory() {
-  let currentSession
+  let currentSession: { flash: { [k: string]: undefined | string[] } }
 
   return {
     request(type: string, ...message: string[] | [string[]]): number {
@@ -27,14 +27,14 @@ export function flashFactory() {
         for (let i = 0; i < message[0].length; i++) {
           ;(currentSession.flash[type] = currentSession.flash[type] || []).push(message[0][i])
         }
-        return currentSession.flash[type].length
+        return currentSession.flash[type]!.length
       }
 
       ;(currentSession.flash[type] = currentSession.flash[type] || []).push(
         message.length > 1 ? format.apply(undefined, message) : message[0],
       )
 
-      return currentSession.flash[type].length
+      return currentSession.flash[type]!.length
     },
 
     reply(type?: string): typeof currentSession.flash | string[] {

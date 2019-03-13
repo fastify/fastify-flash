@@ -14,6 +14,8 @@ export interface ExtendedReply<T = ServerResponse> extends FastifyReply<T> {
 }
 export declare function flashFactory(): {
     request(type: string, ...message: string[] | [string[]]): number;
-    reply(type?: string | undefined): any;
+    reply(type?: string | undefined): string[] | {
+        [k: string]: string[] | undefined;
+    };
     setSession(session: any): void;
 };
