@@ -12,7 +12,9 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "test": "tap -J src/flash.test.ts"
+    "test": "tap -J src/flash.test.ts",
+    "test:report": "npm run test | tee out.tap",
+    "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
     "prettier": "~1.16.4",
     "rimraf": "~2.6.3",
     "tap": "~12.5.3",
+    "tap-mocha-reporter": "~4.0.1",
     "ts-node": "~8.0.2",
     "tslint": "~5.13.0",
     "tslint-config-prettier": "~1.18.0",
