@@ -1,5 +1,5 @@
 import 'fastify'
-import { flashFactory } from '../flash'
+import { flashFactory } from '../../src/flash'
 
 declare module 'fastify' {
   export interface FastifyRequest<HttpRequest, Query, Params, Headers, Body> {

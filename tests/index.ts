@@ -4,8 +4,7 @@ import { readFileSync } from 'fs'
 import Fastify from 'fastify'
 import fastifySession from 'fastify-secure-session'
 
-import fastifyFlash from '.'
-import { ExtendedRequest, ExtendedReply } from './flash'
+import fastifyFlash from '../src'
 
 const key = readFileSync(join(__dirname, '..', 'secret-key'))
 
@@ -19,7 +18,7 @@ test('should set error message and and clear up after displaying.', async t => {
 
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     const count = req.flash('error', 'Something went wrong')
 
     t.equal(count, 1)
@@ -46,7 +45,7 @@ test('should set multiple flash messages.', async t => {
   })
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     req.flash('info', 'Welcome')
     const count = req.flash('info', 'Check out this great new feature')
 
@@ -75,7 +74,7 @@ test('should set flash messages in one call.', async t => {
   })
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     const count = req.flash('warning', ['username required', 'password required'])
     t.equal(count, 2)
 
@@ -104,7 +103,7 @@ test('should independently set, get and clear flash messages of multiple types.'
   })
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     req.flash('info', 'Welcome back')
     req.flash('notice', 'Last login was yesterday')
 
@@ -140,7 +139,7 @@ test('should return all messages and clear.', async t => {
   })
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     req.flash('error', 'Database is down')
     req.flash('error', 'Message queue is down')
     req.flash('notice', 'Things are looking bleak')
@@ -173,7 +172,7 @@ test('should format messages.', async t => {
   })
   fastify.register(fastifyFlash)
 
-  fastify.get('/test', (req: ExtendedRequest, reply: ExtendedReply) => {
+  fastify.get('/test', (req, reply) => {
     req.flash('info', 'Hello %s', 'Jared')
     const jared = reply.flash('info')[0]
     t.equal(jared, 'Hello Jared')

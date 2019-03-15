@@ -5,13 +5,13 @@
     "target": "es2017",
     "module": "commonjs",
     "outDir": "lib",
-    "rootDir": "src",
     "pretty": true,
     "noEmitOnError": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "removeComments": true,
     "noUnusedLocals": true,
@@ -20,7 +20,7 @@
     ],
     "typeRoots": [
       "./node_modules/@types",
-      "./src/types/",
+      "./typings",
   ]
   },
   "formatCodeOptions": {
@@ -28,10 +28,7 @@
     "tabSize": 2
   },
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/__*__"
+    "node_modules"
   ],
   "include": [
     "./src/**/*.ts"

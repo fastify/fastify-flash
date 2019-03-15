@@ -1,19 +1,4 @@
 import { format } from 'util'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { IncomingMessage, ServerResponse } from 'http'
-
-export interface ExtendedRequest<T = IncomingMessage> extends FastifyRequest<T> {
-  session: {
-    flash: {
-      [k: string]: string[]
-    }
-  }
-  flash: ReturnType<typeof flashFactory>['request']
-}
-
-export interface ExtendedReply<T = ServerResponse> extends FastifyReply<T> {
-  flash: ReturnType<typeof flashFactory>['reply']
-}
 
 export function flashFactory() {
   let currentSession: { flash: { [k: string]: undefined | string[] } }
