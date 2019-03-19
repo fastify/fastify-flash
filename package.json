@@ -4,8 +4,9 @@
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
-    "prebuild": "npm run lint",
+    "prebuild": "npm run clean-build && npm run lint",
     "build": "tsc -p ./tsconfig.json",
+    "clean-build": "rimraf ./lib && mkdir lib",
     "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
     "prelint": "npm run prettier",
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
