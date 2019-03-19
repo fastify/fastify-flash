@@ -1,7 +1,8 @@
+import http from 'http'
 import fp from 'fastify-plugin'
 import { flashFactory } from './flash'
 
-export = fp(
+export = fp<http.Server, http.IncomingMessage, http.ServerResponse, {}>(
   function(fastify, opts = {}, done) {
     const flash = flashFactory()
 
@@ -20,7 +21,7 @@ export = fp(
     done()
   },
   {
-    fastify: '2.x.x',
+    fastify: '>= 2.1.0',
     name: 'fastify-flash',
   },
 )

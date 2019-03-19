@@ -4,16 +4,15 @@
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
-    "prebuild": "npm run clean-build && npm run lint",
+    "prebuild": "npm run lint",
     "build": "tsc -p ./tsconfig.json",
-    "clean-build": "rimraf ./lib && mkdir lib",
     "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
     "prelint": "npm run prettier",
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
     "pretest": "./node_modules/.bin/secure-session-gen-key > secret-key",
-    "test": "cross-env TS_NODE_PROJECT=\"./tests/tsconfig.json\" tap -J tests/**/*.ts",
+    "test": "tap -J tests/**/*.ts",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
     "posttest": "rimraf secret-key"
@@ -43,8 +42,7 @@
   "homepage": "http://fastify.io/",
   "devDependencies": {
     "@types/node": "^11.9.6",
-    "cross-env": "~5.2.0",
-    "fastify": "^2.0.0",
+    "fastify": "^2.1.0",
     "fastify-secure-session": "^1.0.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
