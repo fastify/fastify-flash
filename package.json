@@ -1,11 +1,12 @@
 {
   "name": "fastify-flash",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
-    "prebuild": "npm run lint",
+    "prebuild": "npm run clean-build && npm run lint",
     "build": "tsc -p ./tsconfig.json",
+    "clean-build": "rimraf ./lib && mkdir lib",
     "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
     "prelint": "npm run prettier",
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
@@ -57,7 +58,8 @@
     "fastify-plugin": "^1.5.0"
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/typings"
   ],
   "engines": {
     "node": ">=8.10.0"

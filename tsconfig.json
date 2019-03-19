@@ -8,7 +8,7 @@
     "pretty": true,
     "noEmitOnError": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "emitDecoratorMetadata": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
@@ -18,10 +18,6 @@
     "lib": [
       "es2018"
     ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./typings",
-  ]
   },
   "formatCodeOptions": {
     "identSize": 2,
