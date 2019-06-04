@@ -13,5 +13,3 @@ declare module 'fastify' {
     flash: ReturnType<typeof flashFactory>['reply']
   }
 }
-
-export const maronnaMia = 'cuzzo'

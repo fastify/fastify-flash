@@ -13,7 +13,7 @@
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
     "pretest": "./node_modules/.bin/secure-session-gen-key > secret-key",
-    "test": "tap -J tests/**/*.ts",
+    "test": "tap tests/**/*.ts",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
     "posttest": "rimraf secret-key"
@@ -42,20 +42,20 @@
   },
   "homepage": "http://fastify.io/",
   "devDependencies": {
-    "@types/node": "^11.9.6",
-    "fastify": "^2.1.0",
-    "fastify-secure-session": "^1.0.0",
-    "prettier": "^1.16.4",
+    "@types/node": "~12.0.4",
+    "fastify": "~2.4.1",
+    "fastify-secure-session": "~1.1.1",
+    "prettier": "~1.17.1",
     "rimraf": "^2.6.3",
-    "tap": "^12.5.3",
+    "tap": "~14.2.0",
     "tap-mocha-reporter": "^4.0.1",
-    "ts-node": "^8.0.2",
-    "tslint": "^5.13.0",
+    "ts-node": "~8.2.0",
+    "tslint": "~5.17.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.3.3333"
+    "typescript": "~3.5.1"
   },
   "dependencies": {
-    "fastify-plugin": "^1.5.0"
+    "fastify-plugin": "~1.6.0"
   },
   "files": [
     "/lib",
