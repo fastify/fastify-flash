@@ -13,9 +13,6 @@ export = fp<http.Server, http.IncomingMessage, http.ServerResponse, {}>(
       if (!request.session) {
         next(Error('Flash plugin requires a valid session.'))
       }
-
-      flash.setSession(request.session)
-
       next()
     })
     done()

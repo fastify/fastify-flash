@@ -4,6 +4,7 @@ import { join } from 'path'
 import { readFileSync } from 'fs'
 import Fastify from 'fastify'
 import fastifySession from 'fastify-secure-session'
+import querystring from 'querystring'
 
 import fastifyFlash from '../src'
 
@@ -23,8 +24,8 @@ test('should set error message and and clear up after displaying.', async t => {
     const count = req.flash('error', 'Something went wrong')
 
     t.equal(count, 1)
-    t.equal(Object.keys(req.session.flash).length, 1)
-    t.equal(req.session.flash['error'].length, 1)
+    t.equal(Object.keys(req.session.get('flash')).length, 1)
+    t.equal(req.session.get('flash').error.length, 1)
     const error = reply.flash('error')
     reply.send({ error })
   })
@@ -51,8 +52,8 @@ test('should set multiple flash messages.', async t => {
     const count = req.flash('info', 'Check out this great new feature')
 
     t.equal(count, 2)
-    t.equal(Object.keys(req.session.flash).length, 1)
-    t.equal(req.session.flash['info'].length, 2)
+    t.equal(Object.keys(req.session.get('flash')).length, 1)
+    t.equal(req.session.get('flash').info.length, 2)
     const info = reply.flash('info')
 
     reply.send({ info })
@@ -95,6 +96,51 @@ test('should set flash messages in one call.', async t => {
   t.equal(response.statusCode, 200)
 })
 
+test('should pass flash between requests.', async t => {
+  t.plan(8)
+  const fastify = Fastify()
+
+  fastify.register(fastifySession, {
+    key,
+  })
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (req, reply) => {
+    const count = req.flash('warning', ['username required', 'password required'])
+    t.equal(count, 2)
+    reply.send({})
+  })
+
+  fastify.get('/test2', (req, reply) => {
+    const warning = reply.flash('warning')
+    t.equal(warning.length, 2)
+
+    t.equal(warning[0], 'username required')
+    t.equal(warning[1], 'password required')
+    reply.send({ warning })
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+
+  t.equal(response.payload, '{}')
+  t.equal(response.statusCode, 200)
+
+  const response2 = await (fastify as any).inject({
+    method: 'GET',
+    url: '/test2',
+    cookies: {
+      [response.headers['set-cookie'].split('=')[0]]: querystring.unescape(
+        response.headers['set-cookie'].split('=')[1],
+      ),
+    },
+  })
+  t.equal(response2.payload, '{"warning":["username required","password required"]}')
+  t.equal(response2.statusCode, 200)
+})
+
 test('should independently set, get and clear flash messages of multiple types.', async t => {
   t.plan(9)
   const fastify = Fastify()
@@ -108,9 +154,9 @@ test('should independently set, get and clear flash messages of multiple types.'
     req.flash('info', 'Welcome back')
     req.flash('notice', 'Last login was yesterday')
 
-    t.equal(Object.keys(req.session.flash).length, 2)
-    t.equal(req.session.flash.info.length, 1)
-    t.equal(req.session.flash.notice.length, 1)
+    t.equal(Object.keys(req.session.get('flash')).length, 2)
+    t.equal(req.session.get('flash').info.length, 1)
+    t.equal(req.session.get('flash').notice.length, 1)
 
     const info = reply.flash('info')
     t.equal(info.length, 1)
