@@ -132,8 +132,8 @@ test('should pass flash between requests.', async t => {
     method: 'GET',
     url: '/test2',
     cookies: {
-      [response.headers['set-cookie'].split('=')[0]]: querystring.unescape(
-        response.headers['set-cookie'].split('=')[1],
+      [(response.headers['set-cookie'] as string).split('=')[0]]: querystring.unescape(
+        (response.headers['set-cookie'] as string).split('=')[1],
       ),
     },
   })
