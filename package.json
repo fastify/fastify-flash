@@ -45,7 +45,7 @@
     "@types/node": "^12.11.7",
     "fastify": "^3.0.0-rc.1",
     "fastify-secure-session": "^2.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "tap": "^14.10.6",
     "tap-mocha-reporter": "^5.0.1",
