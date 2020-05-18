@@ -43,8 +43,8 @@
   "homepage": "http://fastify.io/",
   "devDependencies": {
     "@types/node": "^12.11.7",
-    "fastify": "^2.12.1",
-    "fastify-secure-session": "~1.2.0",
+    "fastify": "^3.0.0-rc.1",
+    "fastify-secure-session": "^2.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "tap": "^14.10.6",
@@ -55,7 +55,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "fastify-plugin": "~1.6.1"
+    "fastify-plugin": "~2.0.0"
   },
   "files": [
     "/lib",
