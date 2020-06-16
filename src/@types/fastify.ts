@@ -1,7 +1,7 @@
 import { flashFactory } from '../flash'
 
 declare module 'fastify' {
-  export interface FastifyRequestInterface {
+  export interface FastifyRequest {
     session: {
       [key: string]: any
       get(key: string): any
@@ -9,7 +9,7 @@ declare module 'fastify' {
     }
     flash: ReturnType<typeof flashFactory>['request']
   }
-  export interface FastifyReplyInterface {
+  export interface FastifyReply {
     flash: ReturnType<typeof flashFactory>['reply']
   }
 }
