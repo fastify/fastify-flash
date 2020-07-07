@@ -1,6 +1,6 @@
 {
   "name": "fastify-flash",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
