@@ -1,4 +1,10 @@
 # fastify-flash
+
+![CI](https://github.com/fastify/fastify-flash/workflows/CI/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/fastify-flash.svg?style=flat)](https://www.npmjs.com/package/fastify-flash)
+[![Known Vulnerabilities](https://snyk.io/test/github/fastify/fastify-flash/badge.svg)](https://snyk.io/test/github/fastify/fastify-flash)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
+
 The flash is a special area of the session used for storing messages. Messages are written to the flash and cleared after being displayed to the user. The flash is typically used in combination with redirects, ensuring that the message is available to the next page that is to be rendered.
 
 This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connect-flash).
