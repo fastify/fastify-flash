@@ -47,7 +47,7 @@
     "fastify-secure-session": "^2.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "tap": "^14.10.6",
+    "tap": "^15.0.2",
     "tap-mocha-reporter": "^5.0.1",
     "ts-node": "^9.0.0",
     "tslint": "^6.0.0",
