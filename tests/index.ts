@@ -239,3 +239,39 @@ test('should format messages.', async t => {
   t.equal(response.payload, '{"jared":"Hello Jared","jaredHanson":"Hello Jared Hanson"}')
   t.equal(response.statusCode, 200)
 })
+
+test('should return error when session is not defined.', async t => {
+  t.plan(2)
+  const fastify = Fastify()
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (req, reply) => {})
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+  t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Flash plugin requires a valid session."}')
+  t.equal(response.statusCode, 500)
+})
+
+test('should throw error when try to set flash without message.', async t => {
+  t.plan(2)
+  const fastify = Fastify()
+
+  fastify.register(fastifySession, {
+    key,
+  })
+  fastify.register(fastifyFlash, {})
+
+  fastify.get('/test', (req, reply) => {
+    req.flash('info')
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+  t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Provide a message to flash."}')
+  t.equal(response.statusCode, 500)
+})
