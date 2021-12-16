@@ -42,7 +42,7 @@
   },
   "homepage": "http://fastify.io/",
   "devDependencies": {
-    "@types/node": "^16.0.0",
+    "@types/node": "^17.0.0",
     "fastify": "^3.0.0",
     "fastify-secure-session": "^2.0.0",
     "prettier": "^2.0.5",
