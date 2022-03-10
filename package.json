@@ -12,8 +12,8 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "pretest": "./node_modules/.bin/secure-session-gen-key > secret-key",
-    "test": "tap tests/**/*.ts",
+    "pretest": "npx fastify-secure-session > secret-key",
+    "test": "tap \"tests/**/*.ts\"",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
     "posttest": "rimraf secret-key"
