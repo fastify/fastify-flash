@@ -12,7 +12,7 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "pretest": "./node_modules/.bin/secure-session-gen-key > secret-key",
+    "pretest": "./node_modules/.bin/fastify-secure-session > secret-key",
     "test": "tap tests/**/*.ts",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@types/node": "^17.0.0",
     "fastify": "^3.0.0",
-    "fastify-secure-session": "^2.0.0",
+    "fastify-secure-session": "^3.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "tap": "^16.0.0",
@@ -55,7 +55,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "fastify-plugin": "~3.0.0"
+    "fastify-plugin": "^3.0.0"
   },
   "files": [
     "/lib",
