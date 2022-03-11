@@ -13,7 +13,7 @@
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
     "pretest": "npx fastify-secure-session > secret-key",
-    "test": "tap \"tests/**/*.ts\"",
+    "test": "tap",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
     "posttest": "rimraf secret-key"
