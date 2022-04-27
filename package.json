@@ -1,6 +1,6 @@
 {
-  "name": "fastify-flash",
-  "version": "3.0.0",
+  "name": "@fastify/flash",
+  "version": "4.0.0",
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "scripts": {
@@ -63,5 +63,8 @@
   ],
   "engines": {
     "node": ">=10.16.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
