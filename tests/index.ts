@@ -3,7 +3,7 @@ import { test } from 'tap'
 import { join } from 'path'
 import { readFileSync } from 'fs'
 import Fastify from 'fastify'
-import fastifySession from 'fastify-secure-session'
+import fastifySession from '@fastify/secure-session'
 import querystring from 'querystring'
 
 import fastifyFlash from '../src'
