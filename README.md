@@ -1,7 +1,7 @@
-# fastify-flash
+# @fastify/flash
 
 ![CI](https://github.com/fastify/fastify-flash/workflows/CI/badge.svg)
-[![NPM version](https://img.shields.io/npm/v/fastify-flash.svg?style=flat)](https://www.npmjs.com/package/fastify-flash)
+[![NPM version](https://img.shields.io/npm/v/@fastify/flash.svg?style=flat)](https://www.npmjs.com/package/@fastify/flash)
 [![Known Vulnerabilities](https://snyk.io/test/github/fastify/fastify-flash/badge.svg)](https://snyk.io/test/github/fastify/fastify-flash)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
@@ -10,15 +10,15 @@ The flash is a special area of the session used for storing messages. Messages a
 This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connect-flash).
 
 ## Install
-`npm install fastify-flash`
+`npm install @fastify/flash`
 
 ## Usage
-Flash messages are stored in the session. First, we need to register the session plugin: [fastify-secure-session](https://www.npmjs.com/package/fastify-secure-session).
+Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
 
 ``` javascript
 const fastify = require('fastify')()
-const fastifySession = require('fastify-secure-session')
-const fastifyFlash = require('fastify-flash')
+const fastifySession = require('@fastify/secure-session')
+const fastifyFlash = require('@fastify/flash')
 
 fastify.register(fastifySession, {
   // adapt this to point to the directory where secret-key is located
@@ -38,7 +38,7 @@ fastify.get('/test', (req, reply) => {
 ```
 
 ### Note on session plugin
-`fastify-secure-session` can be replaced by any session plugin as long as it:
+`@fastify/secure-session` can be replaced by any session plugin as long as it:
 
 1. registers via the onRequest hook
 2. supports req.session as the session store
