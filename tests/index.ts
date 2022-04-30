@@ -240,6 +240,35 @@ test('should format messages.', async t => {
   t.equal(response.statusCode, 200)
 })
 
+test('should return empty array when the type is not set', async t => {
+  t.plan(6)
+  const fastify = Fastify()
+
+  fastify.register(fastifySession, {
+    key,
+  })
+
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (req, reply) => {
+    const count = req.flash('info', 'Hello, world!')
+
+    t.equal(count, 1)
+    t.equal(Object.keys(req.session.get('flash')).length, 1)
+    t.equal(req.session.get('flash').info.length, 1)
+    t.equal(req.session.get('flash').warning, undefined)
+    const warning = reply.flash('warning')
+    reply.send({ warning })
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+  t.equal(response.payload, '{"warning":[]}')
+  t.equal(response.statusCode, 200)
+})
+
 test('should return error when session is not defined.', async t => {
   t.plan(2)
   const fastify = Fastify()
