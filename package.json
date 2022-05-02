@@ -12,7 +12,7 @@
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "pretest": "npx --yes \"@fastify/secure-session\" > secret-key",
+    "pretest": "npx -p \"@fastify/secure-session\" secure-session > secret-key",
     "test": "tap",
     "test:report": "npm run test | tee out.tap",
     "test:reporter": "tap-mocha-reporter xunit < out.tap > junit-testresults.xml",
