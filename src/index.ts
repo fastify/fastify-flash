@@ -17,7 +17,7 @@ export = fp<{}>(
     done()
   },
   {
-    fastify: '3.x',
-    name: 'fastify-flash',
+    fastify: '4.x',
+    name: '@fastify/flash',
   },
 )
