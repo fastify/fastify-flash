@@ -4,3 +4,4 @@ flow: false
 coverage: true
 check-coverage: false
 files: ['./tests/**/*.ts']
+nyc-arg: [ "--exclude=tests/*" ]
