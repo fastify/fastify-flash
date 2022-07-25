@@ -9,7 +9,7 @@ The flash is a special area of the session used for storing messages. Messages a
 This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connect-flash).
 
 ## Install
-`npm install @fastify/flash`
+`npm i @fastify/flash`
 
 ## Usage
 Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
