@@ -5,7 +5,6 @@ import { readFileSync } from 'fs'
 import Fastify from 'fastify'
 import fastifySession from '@fastify/secure-session'
 import querystring from 'querystring'
-
 import fastifyFlash from '../src'
 
 const key = readFileSync(join(__dirname, '..', 'secret-key'))
@@ -111,7 +110,53 @@ test('should pass flash between requests.', async t => {
     reply.send({})
   })
 
-  fastify.get('/test2', (req, reply) => {
+  fastify.get('/test2', (_, reply) => {
+    const warning = reply.flash('warning')
+    t.equal(warning.length, 2)
+
+    t.equal(warning[0], 'username required')
+    t.equal(warning[1], 'password required')
+    reply.send({ warning })
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+
+  t.equal(response.payload, '{}')
+  t.equal(response.statusCode, 200)
+
+  const response2 = await (fastify as any).inject({
+    method: 'GET',
+    url: '/test2',
+    cookies: {
+      [(response.headers['set-cookie'] as string).split('=')[0]]: querystring.unescape(
+        (response.headers['set-cookie'] as string).split('=')[1],
+      ),
+    },
+  })
+  t.equal(response2.payload, '{"warning":["username required","password required"]}')
+  t.equal(response2.statusCode, 200)
+})
+
+test('should pass flash between requests. / 2', async t => {
+  t.plan(8)
+  const fastify = Fastify()
+
+  fastify.register(fastifySession, {
+    key,
+  })
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (req, reply) => {
+    const count = req.flash('warning', ['username required', 'password required'])
+    req.flash('info', 'Welcome')
+    t.equal(count, 2)
+    reply.send({})
+  })
+
+  fastify.get('/test2', (_, reply) => {
     const warning = reply.flash('warning')
     t.equal(warning.length, 2)
 
@@ -269,21 +314,6 @@ test('should return empty array when the type is not set', async t => {
   t.equal(response.statusCode, 200)
 })
 
-test('should return error when session is not defined.', async t => {
-  t.plan(2)
-  const fastify = Fastify()
-  fastify.register(fastifyFlash)
-
-  fastify.get('/test', (req, reply) => {})
-
-  const response = await fastify.inject({
-    method: 'GET',
-    url: '/test',
-  })
-  t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Flash plugin requires a valid session."}')
-  t.equal(response.statusCode, 500)
-})
-
 test('should throw error when try to set flash without message.', async t => {
   t.plan(2)
   const fastify = Fastify()
@@ -293,7 +323,7 @@ test('should throw error when try to set flash without message.', async t => {
   })
   fastify.register(fastifyFlash, {})
 
-  fastify.get('/test', (req, reply) => {
+  fastify.get('/test', (req) => {
     req.flash('info')
   })
 
@@ -303,4 +333,60 @@ test('should throw error when try to set flash without message.', async t => {
   })
   t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Provide a message to flash."}')
   t.equal(response.statusCode, 500)
+})
+
+test('should return error when session is not defined.', async t => {
+  t.plan(4)
+  const fastify = Fastify()
+  fastify.decorateRequest('session', null)
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', async (req) => {
+    req.flash('error', 'Something went wrong')
+  })
+
+  fastify.get('/test2', async (_, reply) => {
+    reply.flash('error')
+  })
+
+  {
+    const response = await fastify.inject({
+      method: 'GET',
+      url: '/test',
+    })
+    t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Session not found"}')
+    t.equal(response.statusCode, 500)
+  }
+
+  {
+    const response = await fastify.inject({
+      method: 'GET',
+      url: '/test2',
+    })
+    t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Session not found"}')
+    t.equal(response.statusCode, 500)
+  }
+})
+
+test('reply.flash() with no data', async t => {
+  t.plan(2)
+  const fastify = Fastify()
+
+  fastify.register(fastifySession, {
+    key,
+  })
+
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (_, reply) => {
+    const warning = reply.flash('warning')
+    reply.send({ warning })
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+  t.equal(response.payload, '{"warning":[]}')
+  t.equal(response.statusCode, 200)
 })
