@@ -5,7 +5,6 @@ import { readFileSync } from 'fs'
 import Fastify from 'fastify'
 import fastifySession from '@fastify/secure-session'
 import querystring from 'querystring'
-
 import fastifyFlash from '../src'
 
 const key = readFileSync(join(__dirname, '..', 'secret-key'))
@@ -267,21 +266,6 @@ test('should return empty array when the type is not set', async t => {
   })
   t.equal(response.payload, '{"warning":[]}')
   t.equal(response.statusCode, 200)
-})
-
-test('should return error when session is not defined.', async t => {
-  t.plan(2)
-  const fastify = Fastify()
-  fastify.register(fastifyFlash)
-
-  fastify.get('/test', (req, reply) => {})
-
-  const response = await fastify.inject({
-    method: 'GET',
-    url: '/test',
-  })
-  t.equal(response.payload, '{"statusCode":500,"error":"Internal Server Error","message":"Flash plugin requires a valid session."}')
-  t.equal(response.statusCode, 500)
 })
 
 test('should throw error when try to set flash without message.', async t => {
