@@ -2,6 +2,6 @@ ts: true
 jsx: false
 flow: false
 coverage: true
-check-coverage: false
+check-coverage: true
 files: ['./tests/**/*.ts']
 nyc-arg: [ "--exclude=tests/*" ]

@@ -9,6 +9,9 @@ type ReplyReturn =
 export function flashFactory() {
   return {
     request(type: string, ...message: string[] | [string[]]): number {
+      if (!this.session) {
+        throw new Error('Session not found')
+      }
       let currentSession = this.session.get('flash')
       if (!currentSession) {
         currentSession = {}
@@ -39,14 +42,24 @@ export function flashFactory() {
     },
 
     reply(type?: string): ReplyReturn {
+      if (!this.request.session) {
+        throw new Error('Session not found')
+      }
       if (!type) {
         const allMessages = this.request.session.get('flash')
         this.request.session.set('flash', {})
         return allMessages
       }
 
-      const { [type]: messages, ...flash } = this.request.session.get('flash') || {}
-      this.request.session.set('flash', flash)
+      let data = this.request.session.get('flash')
+      if (!data)  {
+        data = {} 
+      }
+
+      const messages = data[type]
+      delete data[type]
+
+      this.request.session.set('flash', data)
 
       return messages || []
     },
