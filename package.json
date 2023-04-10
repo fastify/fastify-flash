@@ -46,7 +46,7 @@
     "@types/node": "^18.0.0",
     "fastify": "^4.0.0-rc.2",
     "prettier": "^2.5.1",
-    "rimraf": "^4.0.7",
+    "rimraf": "^5.0.0",
     "tap": "^16.0.0",
     "tap-mocha-reporter": "^5.0.3",
     "ts-node": "^10.7.0",
