@@ -41,7 +41,7 @@
   "bugs": {
     "url": "https://github.com/fastify/fastify-flash/issues"
   },
-  "homepage": "http://fastify.io/",
+  "homepage": "http://fastify.dev/",
   "devDependencies": {
     "@fastify/secure-session": "^7.0.0",
     "@types/node": "^20.1.0",
