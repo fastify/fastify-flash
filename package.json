@@ -44,7 +44,6 @@
   "homepage": "http://fastify.dev/",
   "devDependencies": {
     "@fastify/secure-session": "^7.1.0",
-    "@tapjs/typescript": "^1.4.1",
     "@types/node": "^20.11.28",
     "fastify": "^4.26.2",
     "prettier": "^3.2.5",
@@ -65,5 +64,9 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "tap": {
+    "plugin": [],
+    "files": ["./tests/**/*.ts"]
   }
 }

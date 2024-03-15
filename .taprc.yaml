@@ -1,7 +1,0 @@
-typecheck: true
-
-plugin:
-  - "!@tapjs/typescript"
-
-files:
-  - "./tests/**/*.ts"
