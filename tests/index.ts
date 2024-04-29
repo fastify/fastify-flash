@@ -1,4 +1,3 @@
-import '../src/@types/fastify'
 import { test } from 'tap'
 import { join } from 'path'
 import { readFileSync } from 'fs'
