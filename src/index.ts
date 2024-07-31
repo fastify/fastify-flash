@@ -19,7 +19,7 @@ export = fp<{}>(
     done()
   },
   {
-    fastify: '4.x',
+    fastify: '5.x',
     name: '@fastify/flash',
     decorators: {
       request: ['session']
