@@ -22,7 +22,7 @@ export = fp<{}>(
     fastify: '5.x',
     name: '@fastify/flash',
     decorators: {
-      request: ['session']
-    }
-  }
+      request: ['session'],
+    },
+  },
 )

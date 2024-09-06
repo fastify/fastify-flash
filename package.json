@@ -1,6 +1,6 @@
 {
   "name": "@fastify/flash",
-  "version": "6.0.0-pre.fv5.2",
+  "version": "6.0.0",
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "type": "commonjs",
@@ -43,9 +43,9 @@
   },
   "homepage": "http://fastify.dev/",
   "devDependencies": {
-    "@fastify/secure-session": "^8.0.0-pre.fv5.1",
+    "@fastify/secure-session": "^8.0.0",
     "@types/node": "^22.0.0",
-    "fastify": "^5.0.0-alpha.3",
+    "fastify": "^5.0.0-alpha.4",
     "prettier": "^3.2.5",
     "rimraf": "^6.0.1",
     "tap": "^18.7.1",
@@ -56,7 +56,7 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "fastify-plugin": "^5.0.0-pre.fv5.1"
+    "fastify-plugin": "^5.0.0"
   },
   "files": [
     "/lib",

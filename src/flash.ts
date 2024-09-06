@@ -52,8 +52,8 @@ export function flashFactory() {
       }
 
       let data = this.request.session.get('flash')
-      if (!data)  {
-        data = {} 
+      if (!data) {
+        data = {}
       }
 
       const messages = data[type]
