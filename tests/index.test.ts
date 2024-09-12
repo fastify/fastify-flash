@@ -8,7 +8,7 @@ import fastifyFlash from '../src'
 
 const key = readFileSync(join(__dirname, '..', '..', 'secret-key'))
 
-test('should set error message and and clear up after displaying.', async (t:TestContext) => {
+test('should set error message and and clear up after displaying.', async (t: TestContext) => {
   t.plan(5)
   const fastify = Fastify()
 
@@ -36,7 +36,7 @@ test('should set error message and and clear up after displaying.', async (t:Tes
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should set multiple flash messages.', async (t:TestContext) => {
+test('should set multiple flash messages.', async (t: TestContext) => {
   t.plan(5)
   const fastify = Fastify()
 
@@ -65,7 +65,7 @@ test('should set multiple flash messages.', async (t:TestContext) => {
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should set flash messages in one call.', async (t:TestContext) => {
+test('should set flash messages in one call.', async (t: TestContext) => {
   t.plan(6)
   const fastify = Fastify()
 
@@ -94,7 +94,7 @@ test('should set flash messages in one call.', async (t:TestContext) => {
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should pass flash between requests.', async (t:TestContext) => {
+test('should pass flash between requests.', async (t: TestContext) => {
   t.plan(8)
   const fastify = Fastify()
 
@@ -139,7 +139,7 @@ test('should pass flash between requests.', async (t:TestContext) => {
   t.assert.strictEqual(response2.statusCode, 200)
 })
 
-test('should pass flash between requests. / 2', async (t:TestContext) => {
+test('should pass flash between requests. / 2', async (t: TestContext) => {
   t.plan(8)
   const fastify = Fastify()
 
@@ -185,7 +185,7 @@ test('should pass flash between requests. / 2', async (t:TestContext) => {
   t.assert.strictEqual(response2.statusCode, 200)
 })
 
-test('should independently set, get and clear flash messages of multiple types.', async (t:TestContext) => {
+test('should independently set, get and clear flash messages of multiple types.', async (t: TestContext) => {
   t.plan(9)
   const fastify = Fastify()
 
@@ -221,7 +221,7 @@ test('should independently set, get and clear flash messages of multiple types.'
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should return all messages and clear.', async (t:TestContext) => {
+test('should return all messages and clear.', async (t: TestContext) => {
   t.plan(5)
   const fastify = Fastify()
 
@@ -254,7 +254,7 @@ test('should return all messages and clear.', async (t:TestContext) => {
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should format messages.', async (t:TestContext) => {
+test('should format messages.', async (t: TestContext) => {
   t.plan(4)
   const fastify = Fastify()
 
@@ -284,7 +284,7 @@ test('should format messages.', async (t:TestContext) => {
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should return empty array when the type is not set', async (t:TestContext) => {
+test('should return empty array when the type is not set', async (t: TestContext) => {
   t.plan(6)
   const fastify = Fastify()
 
@@ -313,7 +313,7 @@ test('should return empty array when the type is not set', async (t:TestContext)
   t.assert.strictEqual(response.statusCode, 200)
 })
 
-test('should throw error when try to set flash without message.', async (t:TestContext) => {
+test('should throw error when try to set flash without message.', async (t: TestContext) => {
   t.plan(2)
   const fastify = Fastify()
 
@@ -334,7 +334,7 @@ test('should throw error when try to set flash without message.', async (t:TestC
   t.assert.strictEqual(response.statusCode, 500)
 })
 
-test('should return error when session is not defined.', async (t:TestContext) => {
+test('should return error when session is not defined.', async (t: TestContext) => {
   t.plan(4)
   const fastify = Fastify()
   fastify.decorateRequest('session', null as any)
@@ -367,7 +367,7 @@ test('should return error when session is not defined.', async (t:TestContext) =
   }
 })
 
-test('reply.flash() with no data', async (t:TestContext) => {
+test('reply.flash() with no data', async (t: TestContext) => {
   t.plan(2)
   const fastify = Fastify()
 
