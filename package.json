@@ -16,7 +16,6 @@
     "pretest": "npx -p \"@fastify/secure-session\" secure-session > secret-key",
     "test": "borp --coverage",
     "test:report": "npm run test | tee out.tap",
-    "test:reporter": "npm run test --reporter=junit>junit-testresults.xml",
     "posttest": "rimraf secret-key"
   },
   "repository": {
