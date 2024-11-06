@@ -1,6 +1,6 @@
 {
   "name": "@fastify/flash",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Flash message plugin for fastify.",
   "main": "./lib",
   "type": "commonjs",
@@ -8,7 +8,7 @@
     "prebuild": "npm run clean-build && npm run lint",
     "build": "tsc -p ./tsconfig.build.json",
     "clean-build": "rimraf ./lib && mkdir lib",
-    "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
+    "prettier": "prettier --log-level warn --write \"src/**/*.{ts,tsx}\"",
     "prelint": "npm run prettier",
     "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
