@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "prebuild": "npm run clean-build && npm run lint",
-    "build": "tsc -p ./tsconfig.json",
+    "build": "tsc -p ./tsconfig.build.json",
     "clean-build": "rimraf ./lib && mkdir lib",
     "prettier": "prettier --loglevel warn --write \"src/**/*.{ts,tsx}\"",
     "prelint": "npm run prettier",
