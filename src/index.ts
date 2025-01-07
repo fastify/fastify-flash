@@ -11,7 +11,7 @@ declare module 'fastify' {
 }
 
 export = fp<{}>(
-  function (fastify, opts, done) {
+  function (fastify, _opts, done) {
     const flash = flashFactory()
 
     fastify.decorateRequest('flash', flash.request)
