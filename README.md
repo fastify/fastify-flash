@@ -44,7 +44,7 @@ fastify.get('/test', (req, reply) => {
 
 
 ## API
-### Set a flash massage(s)
+### Set flash messages
 Signature
 ``` typescript
 req.flash(type: string, ...message: string[] | [string[]]): number
@@ -54,17 +54,18 @@ It can be called in three different ways:
 - `req.flash('warning', ['username required', 'password required'])`
 - `req.flash('info', 'Hello %s', 'Jared') // will use util.format to format the string`
 
-`req.flash` returns the number of messages store with provided type.
+`req.flash` returns the number of messages stored with the provided type.
 
-### Get a flash message(s)
+### Get flash messages
 signature
 ``` typescript
 reply.flash(type?: string): { [k: string]: undefined | string[] } | string[]
 ```
 It can be called in two different ways:
 - `reply.flash() // returns all messages as object { [k: string]: undefined | string[] }`
-- `reply.flash('info') // returns array of messages that are stored with provided type`
+- `reply.flash('info') // returns an array of messages that are stored with the provided type`
 
 ## License
 
-MIT
+Licensed under [MIT](./LICENSE).
+
