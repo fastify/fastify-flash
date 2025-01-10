@@ -28,7 +28,20 @@
     "messages"
   ],
   "contributors": [
-    "Maksim Sinik <maksim@sinik.it>"
+    "Maksim Sinik <maksim@sinik.it>",
+    {
+      "name": "Matteo Collina",
+      "email": "hello@matteocollina.com"
+    },
+    {
+      "name": "James Sumners",
+      "url": "https://james.sumners.info"
+    },
+    {
+      "name": "Frazer Smith",
+      "email": "frazer.dev@icloud.com",
+      "url": "https://github.com/fdawgs"
+    }
   ],
   "license": "MIT",
   "licenses": [
@@ -40,7 +53,17 @@
   "bugs": {
     "url": "https://github.com/fastify/fastify-flash/issues"
   },
-  "homepage": "http://fastify.dev/",
+  "homepage": "https://github.com/fastify/fastify-flash#readme",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/fastify"
+    },
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/fastify"
+    }
+  ],
   "devDependencies": {
     "@fastify/secure-session": "^8.0.0",
     "@types/node": "^22.0.0",
