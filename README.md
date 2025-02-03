@@ -1,6 +1,6 @@
 # @fastify/flash
 
-[![CI](https://github.com/fastify/fastify-flash/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/fastify/fastify-flash/actions/workflows/ci.yml)
+[![CI](https://github.com/fastify/fastify-flash/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/fastify-flash/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/@fastify/flash.svg?style=flat)](https://www.npmjs.com/package/@fastify/flash)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
