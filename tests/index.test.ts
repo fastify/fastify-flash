@@ -1,9 +1,9 @@
 import { test, TestContext } from 'node:test'
-import { join } from 'path'
-import { readFileSync } from 'fs'
+import { join } from 'node:path'
+import { readFileSync } from 'node:fs'
 import Fastify from 'fastify'
 import fastifySession from '@fastify/secure-session'
-import querystring from 'querystring'
+import querystring from 'node:querystring'
 import fastifyFlash from '../src'
 
 const key = readFileSync(join(__dirname, '..', '..', 'secret-key'))
