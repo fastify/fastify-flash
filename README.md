@@ -24,9 +24,12 @@ fastify.register(fastifySession, {
   key: fs.readFileSync(path.join(__dirname, 'secret-key')),
   cookie: {
     // options from setCookie, see https://github.com/fastify/fastify-cookie
+    path: "/"
   }
 })
-fastify.register(fastifyFlash)
+fastify.register(fastifyFlash, {
+  prefix: "/"
+})
 
 fastify.get('/test', (req, reply) => {
   req.flash('warning', ['username required', 'password required'])
