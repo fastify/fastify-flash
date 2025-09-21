@@ -5,18 +5,14 @@
   "main": "./lib",
   "type": "commonjs",
   "scripts": {
-    "prebuild": "npm run clean-build && npm run lint",
-    "build": "tsc -p ./tsconfig.build.json",
+    "build": "npm run clean-build && npm run lint && tsc -p ./tsconfig.build.json",
     "clean-build": "rimraf ./lib && mkdir lib",
     "prettier": "prettier --log-level warn --write \"src/**/*.{ts,tsx}\"",
-    "prelint": "npm run prettier",
-    "lint": "tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
+    "lint": "npm run prettier && tslint --fix -c tslint.json -t stylish -p ./tsconfig.json",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "pretest": "npx -p \"@fastify/secure-session\" secure-session > secret-key",
-    "test": "borp --coverage",
-    "test:report": "npm run test | tee out.tap",
-    "posttest": "rimraf secret-key"
+    "test": "npx -p \"@fastify/secure-session\" secure-session > secret-key && borp --coverage && rimraf secret-key",
+    "test:report": "npm run test | tee out.tap"
   },
   "repository": {
     "type": "git",
