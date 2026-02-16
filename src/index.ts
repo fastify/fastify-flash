@@ -24,5 +24,5 @@ export = fp<{}>(
     decorators: {
       request: ['session'],
     },
-  },
+  }
 )

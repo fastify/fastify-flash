@@ -2,13 +2,13 @@ import { format } from 'node:util'
 
 type ReplyReturn =
   | {
-      [k: string]: string[] | undefined
-    }
+    [k: string]: string[] | undefined
+  }
   | string[]
 
-export function flashFactory() {
+export function flashFactory () {
   return {
-    request(type: string, ...message: string[] | [string[]]): number {
+    request (type: string, ...message: string[] | [string[]]): number {
       if (!this.session) {
         throw new Error('Session not found')
       }
@@ -33,7 +33,7 @@ export function flashFactory() {
         currentSession = {
           ...currentSession,
           [type]: (currentSession[type] || []).concat(
-            message.length > 1 ? format.apply(undefined, message) : message[0],
+            message.length > 1 ? format.apply(undefined, message) : message[0]
           ),
         }
       }
@@ -41,7 +41,7 @@ export function flashFactory() {
       return this.session.get('flash')[type].length
     },
 
-    reply(type?: string): ReplyReturn {
+    reply (type?: string): ReplyReturn {
       if (!this.request.session) {
         throw new Error('Session not found')
       }
