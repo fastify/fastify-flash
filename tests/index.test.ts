@@ -131,7 +131,7 @@ test('should pass flash between requests.', async (t: TestContext) => {
     url: '/test2',
     cookies: {
       [(response.headers['set-cookie'] as string).split('=', 1)[0]]: querystring.unescape(
-        (response.headers['set-cookie'] as string).split('=', 2)[1],
+        (response.headers['set-cookie'] as string).split('=', 2)[1]
       ),
     },
   })
@@ -177,7 +177,7 @@ test('should pass flash between requests. / 2', async (t: TestContext) => {
     url: '/test2',
     cookies: {
       [(response.headers['set-cookie'] as string).split('=', 1)[0]]: querystring.unescape(
-        (response.headers['set-cookie'] as string).split('=', 2)[1],
+        (response.headers['set-cookie'] as string).split('=', 2)[1]
       ),
     },
   })
@@ -249,7 +249,7 @@ test('should return all messages and clear.', async (t: TestContext) => {
   })
   t.assert.strictEqual(
     response.payload,
-    '{"error":["Database is down","Message queue is down"],"notice":["Things are looking bleak"]}',
+    '{"error":["Database is down","Message queue is down"],"notice":["Things are looking bleak"]}'
   )
   t.assert.strictEqual(response.statusCode, 200)
 })

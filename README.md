@@ -9,12 +9,16 @@ The flash is a special area of the session used for storing messages. Messages a
 This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connect-flash).
 
 ## Install
-`npm i @fastify/flash`
+
+```
+npm i @fastify/flash
+```
 
 ## Usage
+
 Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
 
-``` javascript
+```javascript
 const fastify = require('fastify')()
 const fastifySession = require('@fastify/secure-session')
 const fastifyFlash = require('@fastify/flash')
@@ -40,19 +44,24 @@ fastify.get('/test', (req, reply) => {
 ```
 
 ### Note on session plugin
+
 `@fastify/secure-session` can be replaced by any session plugin as long as it:
 
 1. registers via the onRequest hook
 2. supports req.session as the session store
 
-
 ## API
+
 ### Set flash messages
+
 Signature
+
 ``` typescript
 req.flash(type: string, ...message: string[] | [string[]]): number
 ```
+
 It can be called in three different ways:
+
 - `req.flash('info', 'Welcome back')`
 - `req.flash('warning', ['username required', 'password required'])`
 - `req.flash('info', 'Hello %s', 'Jared') // will use util.format to format the string`
@@ -60,15 +69,18 @@ It can be called in three different ways:
 `req.flash` returns the number of messages stored with the provided type.
 
 ### Get flash messages
+
 signature
+
 ``` typescript
 reply.flash(type?: string): { [k: string]: undefined | string[] } | string[]
 ```
+
 It can be called in two different ways:
+
 - `reply.flash() // returns all messages as object { [k: string]: undefined | string[] }`
 - `reply.flash('info') // returns an array of messages that are stored with the provided type`
 
 ## License
 
 Licensed under [MIT](./LICENSE).
-
