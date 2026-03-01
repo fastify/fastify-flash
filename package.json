@@ -69,7 +69,7 @@
     "borp": "^0.21.0",
     "ts-node": "^10.9.2",
     "eslint": "^9.35.0",
-    "neostandard": "^0.12.2",
+    "neostandard": "^0.13.0",
     "typescript": "~5.9.2"
   },
   "dependencies": {
