@@ -23,7 +23,7 @@ test('should set error message and and clear up after displaying.', async (t: Te
 
     t.assert.strictEqual(count, 1)
     t.assert.strictEqual(Object.keys(req.session.get('flash')).length, 1)
-    t.assert.strictEqual(req.session.get('flash').error.length, 1)
+    t.assert.strictEqual(req.session.get('flash').error!.length, 1)
     const error = reply.flash('error')
     reply.send({ error })
   })
@@ -51,7 +51,7 @@ test('should set multiple flash messages.', async (t: TestContext) => {
 
     t.assert.strictEqual(count, 2)
     t.assert.strictEqual(Object.keys(req.session.get('flash')).length, 1)
-    t.assert.strictEqual(req.session.get('flash').info.length, 2)
+    t.assert.strictEqual(req.session.get('flash').info!.length, 2)
     const info = reply.flash('info')
 
     reply.send({ info })
@@ -126,7 +126,7 @@ test('should pass flash between requests.', async (t: TestContext) => {
   t.assert.strictEqual(response.payload, '{}')
   t.assert.strictEqual(response.statusCode, 200)
 
-  const response2 = await (fastify as any).inject({
+  const response2 = await fastify.inject({
     method: 'GET',
     url: '/test2',
     cookies: {
@@ -172,7 +172,7 @@ test('should pass flash between requests. / 2', async (t: TestContext) => {
   t.assert.strictEqual(response.payload, '{}')
   t.assert.strictEqual(response.statusCode, 200)
 
-  const response2 = await (fastify as any).inject({
+  const response2 = await fastify.inject({
     method: 'GET',
     url: '/test2',
     cookies: {
@@ -199,8 +199,8 @@ test('should independently set, get and clear flash messages of multiple types.'
     req.flash('notice', 'Last login was yesterday')
 
     t.assert.strictEqual(Object.keys(req.session.get('flash')).length, 2)
-    t.assert.strictEqual(req.session.get('flash').info.length, 1)
-    t.assert.strictEqual(req.session.get('flash').notice.length, 1)
+    t.assert.strictEqual(req.session.get('flash').info!.length, 1)
+    t.assert.strictEqual(req.session.get('flash').notice!.length, 1)
 
     const info = reply.flash('info')
     t.assert.strictEqual(info.length, 1)
@@ -299,7 +299,7 @@ test('should return empty array when the type is not set', async (t: TestContext
 
     t.assert.strictEqual(count, 1)
     t.assert.strictEqual(Object.keys(req.session.get('flash')).length, 1)
-    t.assert.strictEqual(req.session.get('flash').info.length, 1)
+    t.assert.strictEqual(req.session.get('flash').info!.length, 1)
     t.assert.strictEqual(req.session.get('flash').warning, undefined)
     const warning = reply.flash('warning')
     reply.send({ warning })
@@ -337,7 +337,7 @@ test('should throw error when try to set flash without message.', async (t: Test
 test('should return error when session is not defined.', async (t: TestContext) => {
   t.plan(4)
   const fastify = Fastify()
-  fastify.decorateRequest('session', null as any)
+  fastify.decorateRequest('session', null, [])
   fastify.register(fastifyFlash)
 
   fastify.get('/test', async (req) => {

@@ -1,22 +1,43 @@
 import { format } from 'node:util'
 
-type ReplyReturn =
-  | {
-    [k: string]: string[] | undefined
+type FlashStore = Record<string, string[] | undefined>
+
+type ReplyReturn = FlashStore | string[]
+
+interface SessionLike {
+  get (key: string): unknown
+  set (key: string, value: unknown): void
+}
+
+interface FlashRequestContext {
+  session?: SessionLike
+}
+
+interface FlashReplyContext {
+  request: FlashRequestContext
+}
+
+const isObject = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === 'object' && value !== null
+}
+
+const getFlashStore = (value: unknown): FlashStore => {
+  if (!isObject(value)) {
+    return {}
   }
-  | string[]
+
+  return value as FlashStore
+}
 
 export function flashFactory () {
   return {
-    request (type: string, ...message: string[] | [string[]]): number {
+    request (this: FlashRequestContext, type: string, ...message: string[] | [string[]]): number {
       if (!this.session) {
         throw new Error('Session not found')
       }
-      let currentSession = this.session.get('flash')
-      if (!currentSession) {
-        currentSession = {}
-        this.session.set('flash', currentSession)
-      }
+
+      const session = this.session
+      let currentSession = getFlashStore(session.get('flash'))
 
       if (message.length === 0) {
         throw new Error('Provide a message to flash.')
@@ -26,42 +47,41 @@ export function flashFactory () {
         for (let i = 0; i < message[0].length; i++) {
           currentSession = {
             ...currentSession,
-            [type]: (currentSession[type] || []).concat(message[0][i]),
+            [type]: (currentSession[type] ?? []).concat(message[0][i]),
           }
         }
       } else {
         currentSession = {
           ...currentSession,
-          [type]: (currentSession[type] || []).concat(
+          [type]: (currentSession[type] ?? []).concat(
             message.length > 1 ? format.apply(undefined, message) : message[0]
           ),
         }
       }
-      this.session.set('flash', currentSession)
-      return this.session.get('flash')[type].length
+
+      session.set('flash', currentSession)
+      return currentSession[type]?.length ?? 0
     },
 
-    reply (type?: string): ReplyReturn {
+    reply (this: FlashReplyContext, type?: string): ReplyReturn {
       if (!this.request.session) {
         throw new Error('Session not found')
       }
+
+      const session = this.request.session
       if (!type) {
-        const allMessages = this.request.session.get('flash')
-        this.request.session.set('flash', {})
+        const allMessages = getFlashStore(session.get('flash'))
+        session.set('flash', {})
         return allMessages
       }
 
-      let data = this.request.session.get('flash')
-      if (!data) {
-        data = {}
-      }
-
+      const data = getFlashStore(session.get('flash'))
       const messages = data[type]
       delete data[type]
 
-      this.request.session.set('flash', data)
+      session.set('flash', data)
 
-      return messages || []
+      return messages ?? []
     },
   }
 }

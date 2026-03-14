@@ -1,22 +1,45 @@
+import type {
+  AnyFastifyInstance,
+  ApplyDecorators,
+  FastifyPluginCallback,
+  UnEncapsulatedPlugin
+} from 'fastify'
 import fp from 'fastify-plugin'
 import { flashFactory } from './flash'
 
-declare module 'fastify' {
-  export interface FastifyRequest {
+declare namespace fastifyFlash {
+  export interface FastifyFlashRequestDecorators {
     flash: ReturnType<typeof flashFactory>['request']
   }
-  export interface FastifyReply {
+
+  export interface FastifyFlashReplyDecorators {
     flash: ReturnType<typeof flashFactory>['reply']
   }
+
+  export type FastifyFlashPluginDecorators = {
+    request: FastifyFlashRequestDecorators
+    reply: FastifyFlashReplyDecorators
+  }
+
+  export type FastifyFlashPlugin<TInstance extends AnyFastifyInstance = AnyFastifyInstance> = UnEncapsulatedPlugin<
+    FastifyPluginCallback<
+      {},
+      TInstance,
+      ApplyDecorators<TInstance, FastifyFlashPluginDecorators>
+    >
+  >
 }
 
-export = fp<{}>(
+const fastifyFlashPlugin: fastifyFlash.FastifyFlashPlugin = fp(
   function (fastify, _opts, done) {
     const flash = flashFactory()
 
-    fastify.decorateRequest('flash', flash.request)
-    fastify.decorateReply('flash', flash.reply)
+    const decorated = fastify
+      .decorateRequest('flash', flash.request)
+      .decorateReply('flash', flash.reply)
+
     done()
+    return decorated
   },
   {
     fastify: '5.x',
@@ -26,3 +49,5 @@ export = fp<{}>(
     },
   }
 )
+
+export = fastifyFlashPlugin

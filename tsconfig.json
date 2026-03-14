@@ -14,9 +14,10 @@
     "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
+  "include": ["./src/**/*.ts", "./tests/**/*.ts", "./tests/**/*.d.ts"],
   "incremental": true
 }
