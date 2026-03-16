@@ -73,7 +73,7 @@
     "typescript": "~5.9.2"
   },
   "dependencies": {
-    "fastify-plugin": "^5.0.0"
+    "fastify-plugin": "github:fastify/fastify-plugin#feat/create-plugin"
   },
   "files": [
     "/lib",
