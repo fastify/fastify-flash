@@ -1,5 +1,6 @@
 import fp from 'fastify-plugin'
 import { flashFactory } from './flash'
+import '@fastify/secure-session'
 
 declare module 'fastify' {
   export interface FastifyRequest {
@@ -10,7 +11,7 @@ declare module 'fastify' {
   }
 }
 
-export = fp<{}>(
+export = fp<{ core?: string }>(
   function (fastify, _opts, done) {
     const flash = flashFactory()
 

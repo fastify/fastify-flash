@@ -1,67 +1,60 @@
 import { format } from 'node:util'
+import type { FastifyRequest, FastifyReply } from 'fastify'
 
-type ReplyReturn =
-  | {
-    [k: string]: string[] | undefined
+declare module '@fastify/secure-session' {
+  interface SessionData {
+    flash: { [k: string]: string[] }
   }
-  | string[]
+}
+
+type FlashData = { [k: string]: string[] }
+export type ReplyReturn = FlashData | string[]
 
 export function flashFactory () {
   return {
-    request (type: string, ...message: string[] | [string[]]): number {
+    request (this: FastifyRequest, type: string, ...message: string[] | [string[]]): number {
       if (!this.session) {
         throw new Error('Session not found')
       }
-      let currentSession = this.session.get('flash')
-      if (!currentSession) {
-        currentSession = {}
-        this.session.set('flash', currentSession)
-      }
+
+      let currentSession = this.session.get('flash') || {}
 
       if (message.length === 0) {
         throw new Error('Provide a message to flash.')
       }
 
-      if (Array.isArray(message[0])) {
-        for (let i = 0; i < message[0].length; i++) {
-          currentSession = {
-            ...currentSession,
-            [type]: (currentSession[type] || []).concat(message[0][i]),
-          }
-        }
-      } else {
-        currentSession = {
-          ...currentSession,
-          [type]: (currentSession[type] || []).concat(
-            message.length > 1 ? format.apply(undefined, message) : message[0]
-          ),
-        }
+      const messagesToAdd = Array.isArray(message[0])
+        ? message[0]
+        : [message.length > 1 ? format.apply(undefined, message) : (message[0] as string)]
+
+      currentSession = {
+        ...currentSession,
+        [type]: (currentSession[type] || []).concat(messagesToAdd)
       }
+
       this.session.set('flash', currentSession)
-      return this.session.get('flash')[type].length
+      const updatedFlash = this.session.get('flash') || {}
+      return updatedFlash[type]?.length ?? 0
     },
 
-    reply (type?: string): ReplyReturn {
+    reply (this: FastifyReply, type?: string): ReplyReturn {
       if (!this.request.session) {
         throw new Error('Session not found')
       }
+
+      const session = this.request.session
+      const allMessages = session.get('flash') || {}
+
       if (!type) {
-        const allMessages = this.request.session.get('flash')
-        this.request.session.set('flash', {})
+        session.set('flash', {})
         return allMessages
       }
 
-      let data = this.request.session.get('flash')
-      if (!data) {
-        data = {}
-      }
+      const messages = allMessages[type] || []
+      const { [type]: _, ...remaining } = allMessages
 
-      const messages = data[type]
-      delete data[type]
-
-      this.request.session.set('flash', data)
-
-      return messages || []
+      session.set('flash', remaining)
+      return messages
     },
   }
 }
