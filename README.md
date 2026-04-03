@@ -14,6 +14,10 @@ This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connec
 npm i @fastify/flash
 ```
 
+TypeScript note: when using modern Fastify typings, `request.flash()` and
+`reply.flash()` are inferred from the registered instance. Legacy global
+augmentation remains available for compatibility.
+
 ## Usage
 
 Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
