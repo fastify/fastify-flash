@@ -40,12 +40,6 @@
     }
   ],
   "license": "MIT",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/fastify/fastify-flash/issues"
   },
