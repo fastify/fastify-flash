@@ -2,7 +2,7 @@ import { test, TestContext } from 'node:test'
 import { join } from 'node:path'
 import { readFileSync } from 'node:fs'
 import Fastify from 'fastify'
-import fastifySession from '@fastify/secure-session'
+import fastifySession, { Session, SessionData } from '@fastify/secure-session'
 import querystring from 'node:querystring'
 import fastifyFlash from '../src'
 
@@ -391,5 +391,31 @@ test('reply.flash() with no data', async (t: TestContext) => {
     url: '/test',
   })
   t.assert.strictEqual(response.payload, '{"warning":[]}')
+  t.assert.strictEqual(response.statusCode, 200)
+})
+
+test('should return 0 when session storage does not echo back what was just set', async (t: TestContext) => {
+  t.plan(3)
+  const fastify = Fastify()
+
+  const fakeSession = {
+    get: () => undefined,
+    set: () => {}
+  } as unknown as Session<SessionData>
+
+  fastify.decorateRequest('session', { getter: () => fakeSession })
+  fastify.register(fastifyFlash)
+
+  fastify.get('/test', (req, reply) => {
+    const count = req.flash('error', 'Something went wrong')
+    t.assert.strictEqual(count, 0)
+    reply.send({ count })
+  })
+
+  const response = await fastify.inject({
+    method: 'GET',
+    url: '/test',
+  })
+  t.assert.strictEqual(response.payload, '{"count":0}')
   t.assert.strictEqual(response.statusCode, 200)
 })

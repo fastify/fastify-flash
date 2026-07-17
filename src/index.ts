@@ -1,4 +1,4 @@
-import fp from 'fastify-plugin'
+import fp = require('fastify-plugin')
 import { flashFactory } from './flash'
 import '@fastify/secure-session'
 

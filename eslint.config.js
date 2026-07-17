@@ -2,5 +2,5 @@
 
 module.exports = require('neostandard')({
   ts: true,
-  ignores: ['dist/', 'node_modules/', 'test/'],
+  ignores: ['lib/', 'node_modules/', 'test/'],
 })
