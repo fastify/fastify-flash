@@ -1,13 +1,13 @@
 import { format } from 'node:util'
 import type { FastifyRequest, FastifyReply } from 'fastify'
+import type { SessionData } from '@fastify/secure-session'
 
 declare module '@fastify/secure-session' {
   interface SessionData {
     flash: { [k: string]: string[] }
   }
 }
-
-type FlashData = { [k: string]: string[] }
+type FlashData = SessionData['flash']
 export type ReplyReturn = FlashData | string[]
 
 export function flashFactory () {

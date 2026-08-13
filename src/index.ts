@@ -1,6 +1,5 @@
 import fp = require('fastify-plugin')
 import { flashFactory } from './flash'
-import '@fastify/secure-session'
 
 declare module 'fastify' {
   export interface FastifyRequest {
