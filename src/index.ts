@@ -1,6 +1,5 @@
 import fp from 'fastify-plugin'
 import { flashFactory } from './flash.ts'
-import '@fastify/secure-session'
 
 declare module 'fastify' {
   export interface FastifyRequest {
