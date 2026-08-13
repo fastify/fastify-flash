@@ -1,6 +1,6 @@
 {
   "name": "@fastify/flash",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "description": "Flash message plugin for fastify.",
   "type": "module",
   "main": "./lib/index.js",
