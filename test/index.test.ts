@@ -6,7 +6,7 @@ import fastifySession, { type Session, type SessionData } from '@fastify/secure-
 import querystring from 'node:querystring'
 import fastifyFlash from '../src/index.ts'
 
-const key = readFileSync(join(import.meta.dirname, '..', '..', 'secret-key'))
+const key = readFileSync(join(import.meta.dirname, '..', 'secret-key'))
 
 test('should set error message and and clear up after displaying.', async (t: TestContext) => {
   t.plan(5)
