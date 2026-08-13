@@ -2,8 +2,15 @@
   "name": "@fastify/flash",
   "version": "6.0.4",
   "description": "Flash message plugin for fastify.",
-  "main": "./lib",
-  "type": "commonjs",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
   "scripts": {
     "build": "npm run clean-build && npm run lint && tsc -p ./tsconfig.build.json",
     "clean-build": "rimraf ./lib && mkdir lib",
@@ -72,5 +79,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0 <21 || >=22.12.0"
   }
 }

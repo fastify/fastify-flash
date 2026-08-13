@@ -1,12 +1,12 @@
-import { test, TestContext } from 'node:test'
+import { test, type TestContext } from 'node:test'
 import { join } from 'node:path'
 import { readFileSync } from 'node:fs'
 import Fastify from 'fastify'
-import fastifySession, { Session, SessionData } from '@fastify/secure-session'
+import fastifySession, { type Session, type SessionData } from '@fastify/secure-session'
 import querystring from 'node:querystring'
-import fastifyFlash from '../src'
+import fastifyFlash from '../src/index.ts'
 
-const key = readFileSync(join(__dirname, '..', '..', 'secret-key'))
+const key = readFileSync(join(import.meta.dirname, '..', '..', 'secret-key'))
 
 test('should set error message and and clear up after displaying.', async (t: TestContext) => {
   t.plan(5)
