@@ -14,8 +14,6 @@ This plugin is inspired by [connect-flash](https://github.com/jaredhanson/connec
 npm i @fastify/flash
 ```
 
-> **Note:** this package is ESM-only starting from v7. It can still be `require()`'d from CommonJS thanks to Node's native `require(esm)` support (stable since Node 20.19.0/22.12.0). See [engines](package.json) for the minimum supported Node.js version.
-
 ## Usage
 
 Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
