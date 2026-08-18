@@ -18,7 +18,7 @@
     "lint:fix": "eslint --fix",
     "update": "npx npm-check -u",
     "prepublishOnly": "npm run build",
-    "test": "npx -p \"@fastify/secure-session\" secure-session > secret-key && borp --coverage && rimraf secret-key",
+    "test": "npx -p \"@fastify/secure-session\" secure-session > secret-key && borp --coverage --check-coverage && rimraf secret-key",
     "test:report": "npm run test | tee out.tap"
   },
   "repository": {
