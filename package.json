@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "npm run clean-build && npm run lint && tsc -p ./tsconfig.build.json",
+    "release:build": "npm run build",
     "clean-build": "rimraf ./lib && mkdir lib",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
