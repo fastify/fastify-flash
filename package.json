@@ -68,9 +68,6 @@
   "dependencies": {
     "fastify-plugin": "^6.0.0"
   },
-  "files": [
-    "/lib"
-  ],
   "publishConfig": {
     "access": "public"
   }
