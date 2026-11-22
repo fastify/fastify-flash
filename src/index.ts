@@ -1,5 +1,5 @@
-import fp = require('fastify-plugin')
-import { flashFactory } from './flash'
+import fp from 'fastify-plugin'
+import { flashFactory } from './flash.ts'
 
 declare module 'fastify' {
   export interface FastifyRequest {
@@ -10,10 +10,9 @@ declare module 'fastify' {
   }
 }
 
-export = fp<{ core?: string }>(
+export default fp<{ core?: string }>(
   function (fastify, _opts, done) {
     const flash = flashFactory()
-
     fastify.decorateRequest('flash', flash.request)
     fastify.decorateReply('flash', flash.reply)
     done()

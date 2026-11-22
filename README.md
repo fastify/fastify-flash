@@ -18,7 +18,44 @@ npm i @fastify/flash
 
 Flash messages are stored in the session. First, we need to register the session plugin: [@fastify/secure-session](https://www.npmjs.com/package/@fastify/secure-session).
 
+### ESM
+
 ```javascript
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import Fastify from 'fastify'
+import fastifySession from '@fastify/secure-session'
+import fastifyFlash from '@fastify/flash'
+
+const fastify = Fastify()
+
+fastify.register(fastifySession, {
+  // adapt this to point to the directory where secret-key is located
+  key: readFileSync(join(import.meta.dirname, 'secret-key')),
+  cookie: {
+    // options from setCookie, see https://github.com/fastify/fastify-cookie
+    path: "/"
+  }
+})
+fastify.register(fastifyFlash, {
+  prefix: "/"
+})
+
+fastify.get('/test', (req, reply) => {
+  req.flash('warning', ['username required', 'password required'])
+
+  const warning = reply.flash('warning')
+  reply.send({ warning }) // {"warning":["username required","password required"]}
+})
+```
+
+### CommonJS
+
+Even though this package ships as ESM, it can still be `require()`'d from a CommonJS project (see the [Install](#install) note above):
+
+```javascript
+const fs = require('node:fs')
+const path = require('node:path')
 const fastify = require('fastify')()
 const fastifySession = require('@fastify/secure-session')
 const fastifyFlash = require('@fastify/flash')
